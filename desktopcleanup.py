@@ -2,8 +2,7 @@
 import os
 ls = os.listdir(".")
 pwd = os.getcwd()
-print(ls)
-print(pwd)
+
 if 'images' not in ls:
 	os.mkdir("images")
 if 'archives' not in ls:
@@ -15,8 +14,7 @@ if 'scripts' not in ls:
 
 for result in ls:
 	if any(x in result for x in['jpg', 'png', 'gif', 'tif']):
-		current = pwd + '/' + result
-		moved = pwd + '/images/' + result
-		print(current)
-		print(moved)
-#		os.rename(pwd + result, pwd + '/images/' + result)
+		current = os.path.join(pwd, result)
+		moved = os.path.join(pwd, 'images', result)
+		print("{} -> {}".format(current, moved))
+		os.rename(pwd + result, pwd + '/images/' + result)
