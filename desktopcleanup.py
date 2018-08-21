@@ -13,3 +13,10 @@ if 'books' not in ls:
 if 'scripts' not in ls:
 	os.mkdir("scripts")
 
+for result in ls:
+	if any(x in result for x in['jpg', 'png', 'gif', 'tif']):
+		current = pwd + '/' + result
+		moved = pwd + '/images/' + result
+		print(current)
+		print(moved)
+#		os.rename(pwd + result, pwd + '/images/' + result)
