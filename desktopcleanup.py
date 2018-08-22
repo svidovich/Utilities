@@ -15,7 +15,8 @@ if 'music' not in ls:
 	os.mkdir("music")
 if 'applications' not in ls:
 	os.mkdir("applications")
-
+if 'videos' not in ls:
+	os.mkdir("videos")
 
 for result in ls:
 	if any(x in result.lower() for x in['jpg', 'png', 'gif', 'tif']):
@@ -52,4 +53,10 @@ for result in ls:
 	if any(x in result.lower() for x in['.appimage', '.exe', '.dmg', '.jar']):
 		current = os.path.join(pwd, result)
 		moved = os.path.join(pwd, 'applications', result)
+		os.rename(current, moved)
+
+for result in ls:
+	if any(x in result.lower() for x in['.webm', '.gif', '.mkv', '.flv', '.vob', '.gifv', '.avi', '.mov', '.qt', '.wmv', '.rm', '.asf', '.amv', '.mp4', '.m4v', '.mpg', '.mpeg', '.3gp', '.3g2', '.mxf', '.roq', '.nsv', '.f4v', '.f4a']):
+		current = os.path.join(pwd, result)
+		moved = os.path.join(pwd, 'videos', result)
 		os.rename(current, moved)
