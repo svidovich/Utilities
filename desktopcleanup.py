@@ -16,5 +16,10 @@ for result in ls:
 	if any(x in result for x in['jpg', 'png', 'gif', 'tif']):
 		current = os.path.join(pwd, result)
 		moved = os.path.join(pwd, 'images', result)
-		print("{} -> {}".format(current, moved))
-		os.rename(pwd + result, pwd + '/images/' + result)
+		os.rename(current, moved)
+
+for result in ls:
+	if any(x in result for x in['.zip', '.gz', '.tar', '.bz2', '.lz', '.7z', '.cab', '.jar', '.rar', '.tgz', '.zipx']):
+		current = os.path.join(pwd, result)
+		moved = os.path.join(pwd, 'archives', result)
+		os.rename(current, moved)
