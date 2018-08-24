@@ -1,2 +1,1 @@
-<subject>
-<body> This is where you can put messages that you want to send out in emails.
+{"subject":"Enter Subject", "body": "Enter Body"}

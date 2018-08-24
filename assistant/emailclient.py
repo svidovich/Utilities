@@ -18,7 +18,7 @@ with open(account, 'r') as file:
 with open(recipient, "r") as file:
 	destination = json.load(file)
 with open(emailmessage, "r") as file:
-	message = file.readlines()
+	message = json.load(file)
 
 # Let's begin talking with the server
 try:
@@ -31,8 +31,8 @@ except Exception as e:
 msg = MIMEMultipart()
 msg['From'] = details["login"]
 msg['To'] = destination["destination"]
-msg['Subject'] = message[0]
-msg.attach(MIMEText(message[1], 'plain'))
+msg['Subject'] = message["subject"]
+msg.attach(MIMEText(message["body"], 'plain'))
 msg = msg.as_string()
 
 try:
