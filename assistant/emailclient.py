@@ -3,17 +3,22 @@
 
 import smtplib
 import json
+from email.MIMEMultipart import MIMEMultipart
+from email.MIMEText import MIMEText
+
 # Set up a server that we can use
 server = smtplib.SMTP('smtp.gmail.com',587)
 
 # We need to get our settings from file
 account = "accountdetails.cfg"
 recipient = "destination.cfg"
+emailmessage = "message.email"
 with open(account, 'r') as file:
 	details = json.load(file)
 with open(recipient, "r") as file:
 	destination = json.load(file)
-
+with open(emailmessage, "r") as file:
+	message = file.readlines()
 
 # Let's begin talking with the server
 try:
@@ -23,7 +28,12 @@ except Exception as e:
 	print("Exception occured: {}".format(e))
 	server.quit()
 
-msg = "This is a test message from the assistant application. Do not panic."
+msg = MIMEMultipart()
+msg['From'] = details["login"]
+msg['To'] = destination["destination"]
+msg['Subject'] = message[0]
+msg.attach(MIMEText(message[1], 'plain'))
+msg = msg.as_string()
 
 try:
 	print("Sending email message.")
