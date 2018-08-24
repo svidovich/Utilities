@@ -21,5 +21,5 @@ class gnosisSpider(Spider):
         yield Request(url=url, callback=self.parse_library)
 
     def parse_library(self, response):
-	html = response.xpath('http://www.gnosis.org/library/alch.htm').extract()[0]
+	html = response.xpath('/html/body').extract()[0]
 	print(html)
