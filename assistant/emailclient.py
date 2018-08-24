@@ -5,15 +5,18 @@ import smtplib
 server = smtplib.SMTP('smtp.gmail.com',587)
 # Let's begin talking with the server
 
-server.starttls()
-server.login("emailaddress","emailpassword")
-
+try:
+	server.starttls()
+	server.login("","")
+except Exception as e:
+	print("Exception occured: {}".format(e))
+	server.quit()
 
 msg = "This is a test message from the assistant application. Do not panic."
 
 try:
 	print("Sending email message.")
-	server.sendmail("from", "to", msg)
+	server.sendmail("", "", msg)
 except Exception as e:
 	print("Exception occured: {}".format(e))
 finally:
