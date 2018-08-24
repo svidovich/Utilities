@@ -8,8 +8,12 @@ server = smtplib.SMTP('smtp.gmail.com',587)
 
 # We need to get our settings from file
 account = "accountdetails.cfg"
+recipient = "destination.cfg"
 with open(account, 'r') as file:
 	details = json.load(file)
+with open(recipient, "r") as file:
+	destination = json.load(file)
+
 
 # Let's begin talking with the server
 try:
@@ -23,7 +27,7 @@ msg = "This is a test message from the assistant application. Do not panic."
 
 try:
 	print("Sending email message.")
-	server.sendmail("", "", msg)
+	server.sendmail(details["login"], destination["destination"], msg)
 except Exception as e:
 	print("Exception occured: {}".format(e))
 finally:
