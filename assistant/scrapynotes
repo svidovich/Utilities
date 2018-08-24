@@ -1,0 +1,32 @@
+Things to import for scrapy:
+
+from scrapy import Spider
+from scrapy.http import Request, FormRequest, HtmlResponse
+import urlparse
+import re
+
+to use splash do
+from scrapy_splash import SplashRequest
+
+
+Spiders should start like
+
+class siteSpider(Spider)
+	name = "site"
+	custom_settings = {
+		'MEDIA_ALLOW_REDIRECTS': 'True'
+	}
+#There are more custom settings needed for splash that we will add later.
+	allowed_domains = ["site.com"]
+	def start_requests(self):
+		url = "http://always-use-http-or-https"
+		yield Request(url=url, callback=self.next_function)
+
+The folder structure is like
+
+scraper
+-> output
+-> project
+---> spiders
+------> spiders here!
+---> settings.py
