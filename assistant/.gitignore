@@ -2,3 +2,4 @@ samples/
 *.swp
 accountdetails.cfg
 destination.cfg
+*.pyc

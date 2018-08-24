@@ -2,7 +2,7 @@ BOT_NAME = "firmware"
 
 #LOG_ENABLED=False
 
-NEWSPIDER_MODULE = "scraper.spiders"
+NEWSPIDER_MODULE = "projectfiles.spiders"
 
 # Add the custom FTP crawler handler
 DOWNLOAD_HANDLERS = {'ftp': 'firmware.ftp_utilities.FtpListingHandler'}
