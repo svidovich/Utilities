@@ -3,11 +3,13 @@ from scrapy.http import Request, FormRequest, HtmlResponse
 import urlparse
 import re
 import os
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 
 class naghammadiSpider(Spider):
     name = "naghammadi"
-
     ls = os.listdir(".")
     pwd = os.getcwd()
     if 'archives' not in ls:
@@ -39,3 +41,7 @@ class naghammadiSpider(Spider):
 	title = response.meta["title"] + ".gno"
 	with open(title, "w") as file:
 		file.write(text)
+	print(self.pwd)
+	current = os.path.join(self.pwd, title)
+	moved = os.path.join(self.pwd, 'archives', title)
+	os.rename(current, moved)

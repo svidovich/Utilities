@@ -3,3 +3,4 @@ samples/
 accountdetails.cfg
 destination.cfg
 *.pyc
+*.gno
