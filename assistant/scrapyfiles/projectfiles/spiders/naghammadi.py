@@ -2,10 +2,17 @@ from scrapy import Spider
 from scrapy.http import Request, FormRequest, HtmlResponse
 import urlparse
 import re
+import os
 
 
 class naghammadiSpider(Spider):
     name = "naghammadi"
+
+    ls = os.listdir(".")
+    pwd = os.getcwd()
+    if 'archives' not in ls:
+	os.mkdir("archives")
+
     # yapf: disable
     custom_settings = {
         # This is important! It allows us to use the download links from the pages to get files!
@@ -29,4 +36,6 @@ class naghammadiSpider(Spider):
 	text = ''
 	for node in response.xpath('//p'):
 		text += node.xpath('string()').extract()[0]
-	print(text)
+	title = response.meta["title"] + ".gno"
+	with open(title, "w") as file:
+		file.write(text)
