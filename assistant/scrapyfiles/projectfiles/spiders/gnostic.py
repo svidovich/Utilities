@@ -15,9 +15,10 @@ class gnosisSpider(Spider):
     allowed_domains = ["gnosis.org"]
     def start_requests(self):
         url = "http://www.gnosis.org/library.html"
-        yield Request(url=url, callback=self.parse_library)
+        yield Request(url=url, callback=self.search_stacks)
 
-    def parse_library(self, response):
+    def search_stacks(self, response):
 	html = response.xpath('/html/body/table/tr/td[1]').extract()[0]
-	for href, stack in re.findall('href="(.*?)><font face="Arial">(.*?)</font>"', html):
-		print("href:{}\nstack:{}\n".format(href,stack))
+	for href, stack in re.findall('href="(.*?)"><font face="Arial">(.*?)</font>', html):
+		url = "http://www.gnosis.org{}".format(href)
+		yield Request(url=url, callback=self.search_library, meta={'stack':stack})
