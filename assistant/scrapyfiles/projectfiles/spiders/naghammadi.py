@@ -41,7 +41,6 @@ class naghammadiSpider(Spider):
 	title = response.meta["title"] + ".gno"
 	with open(title, "w") as file:
 		file.write(text)
-	print(self.pwd)
 	current = os.path.join(self.pwd, title)
 	moved = os.path.join(self.pwd, 'archives', title)
 	os.rename(current, moved)
