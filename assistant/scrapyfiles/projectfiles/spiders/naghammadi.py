@@ -18,12 +18,15 @@ class naghammadiSpider(Spider):
         yield Request(url=url, callback=self.search_library)
 
     def search_library(self, response):
-	html = response.xpath('/html/body/table/tr/td[2]/blockquote/ul/ul').extract()[0]
+	html = response.xpath('/html/body').extract()[0]
 	for href, title in re.findall('href="(.*?)"><strong>(.*?)</strong>', html):
 		if '/' in href:
 			url = "http://www.gnosis.org{}".format(href)
 		else:
-			url = "http://www.gnosis.org/{}".format(href)
-		yield Request(url=url, callback=self.search_library, meta={'title':title})
+			url = "http://www.gnosis.org/naghamm/{}".format(href)
+		yield Request(url=url, callback=self.search_book, meta={'title':title})
     def search_book(self, response):
-	pass
+	text = ''
+	for node in response.xpath('//p'):
+		text += node.xpath('string()').extract()[0]
+	print(text)
