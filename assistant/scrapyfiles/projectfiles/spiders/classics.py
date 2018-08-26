@@ -33,8 +33,12 @@ class classicsSpider(Spider):
     def search_library(self, response):
 	html = response.xpath('/html/body/table/tr/td[2]/blockquote').extract()[0]
 	for href, title in re.findall('<strong><a href="(.*?)">(.*?)</a>', html, re.DOTALL):
-		print("{}\n{}\n".format(href,title))
+		url = "http://www.gnosis.org/library/{}".format(href)
+		yield Reuest(url=url, meta={'title':title}, callback=self.collect_fragments)
 
+   def collect_fragments(self, response):
+	text = ''
+	for node in response.xpath('//p'):
 #	current = os.path.join(self.pwd, title)
 #	moved = os.path.join(self.pwd, 'archives', title)
 #	os.rename(current, moved)
