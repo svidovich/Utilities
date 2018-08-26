@@ -30,6 +30,11 @@ class classicsSpider(Spider):
         url = "http://www.gnosis.org/library/gs.htm"
         yield Request(url=url, callback=self.search_library)
 
+    def search_library(self, response):
+	html = response.xpath('/html/body/table/tr/td[2]/blockquote').extract()[0]
+	for href, title in re.findall('<strong><a href="(.*?)">(.*?)</a>', html, re.DOTALL):
+		print("{}\n{}\n".format(href,title))
+
 #	current = os.path.join(self.pwd, title)
 #	moved = os.path.join(self.pwd, 'archives', title)
 #	os.rename(current, moved)
