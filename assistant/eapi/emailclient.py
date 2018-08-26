@@ -1,6 +1,4 @@
-# For now this is a test script to send emails via python
-# later I am going to turn it into an API that makes the whole process easier
-
+import sys
 import smtplib
 import json
 from email.MIMEMultipart import MIMEMultipart
@@ -18,18 +16,26 @@ emailmessage = "message.email"
 # >> { login:email, password:emailpassword }	
 # Returns
 # N/A
-def initialize_client(account, recipient, emailmessage):
+def initialize_client(account):
 	# Set up a server that we can use
+	print("Getting SMTP from gmail port 587...")
 	server = smtplib.SMTP('smtp.gmail.com',587)
+	print("Getting account details...")
+	try:
 	with open(account, 'r') as file:
 		details = json.load(file)
+	except Exception as e:
+		print("Problem getting account details: {} Exiting...".format(e))
+		exit(1)
 	# Let's begin talking with the server
 	try:
+		print("Attempting to start tls...")
 		server.starttls()
 		server.login(details["login"], details["password"])
 	except Exception as e:
-		print("Exception occured: {}".format(e))
+		print("Exception occured: {} Exiting...".format(e))
 		server.quit()
+		exit(1)
 
 # This ( message builder )
 # Takes
@@ -46,7 +52,8 @@ def construct_message(recipient, emailmessage):
 		with open(emailmessage, "r") as file:
 			message = json.load(file)
 	except Exception as e:
-		print("An Exception occured when constructing an email message: {}".format(e))
+		print("An Exception occured when constructing an email message: {} Exiting...".format(e))
+		exit(1)
 	msg = MIMEMultipart()
 	msg['From'] = details["login"]
 	msg['To'] = destination["destination"]
