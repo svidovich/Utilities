@@ -4,3 +4,4 @@ accountdetails.cfg
 destination.cfg
 *.pyc
 *.gno
+*.email
