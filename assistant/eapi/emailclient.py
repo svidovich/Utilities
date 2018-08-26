@@ -12,7 +12,7 @@ emailmessage = "message.email"
 
 # This ( initializer )
 # Takes
-# > account: json file with schema
+# > account: filename of json file with schema
 # >> { login:email, password:emailpassword }	
 # Returns
 # server: SMTP connection to mail server
@@ -43,9 +43,9 @@ def initialize_client(account):
 
 # This ( message builder )
 # Takes
-# > recipient: json file with schema
+# > recipient: filename of json file with schema
 # >> { destination:recipientemailaddress )
-# > emailmessage: json file with schema
+# > emailmessage: filename of json file with schema
 # >> { subject:emailsubjectline, body:emailbodytosend }
 # Returns
 # > email message according to python MIME lib as string
@@ -73,11 +73,19 @@ def construct_message(recipient, emailmessage):
 # Returns
 # N/A
 def send message(message, server):
-try:
-	print("Sending email message.")
-	server.sendmail(details["login"], destination["destination"], msg)
-except Exception as e:
-	print("Exception occured when sending mail: {}".format(e))
+	try:
+		print("Sending email message.")
+		server.sendmail(details["login"], destination["destination"], msg)
+	except Exception as e:
+		print("Exception occured when sending mail: {}".format(e))
 
+# This ( connection closer )
+# Takes
+# > server: connection to email SMTP server returned by initializer
+def close_connection(server):
+	try:
+		server.quit()
+	except Exception as e:
+		print("Exception occured when closing connection to SMTP: {}".format(e))
 
 
