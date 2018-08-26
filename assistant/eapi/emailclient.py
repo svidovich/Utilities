@@ -1,6 +1,3 @@
-# I do not yet know if the user will have to import these.
-# This is because I suck at python.
-
 import sys
 import smtplib
 import json
@@ -51,12 +48,14 @@ def initialize_client(account):
 # > email message according to python MIME lib as string
 def construct_message(account, recipient, emailmessage):
 	try:
+		print("Getting details for construction of message...")
 		with open(account, 'r') as file:
 			details = json.load(file)
 		with open(recipient, "r") as file:
 			destination = json.load(file)
 		with open(emailmessage, "r") as file:
 			message = json.load(file)
+		print("Details retrieved successfully.")
 	except Exception as e:
 		print("An Exception occured when constructing an email message: {} Exiting...".format(e))
 		# We want to exit here because if we can't open these files and continue, we will be
@@ -88,6 +87,7 @@ def send_message(account, recipient, message, server):
 	try:
 		print("Sending email message...")
 		server.sendmail(details["login"], destination["destination"], message)
+		print("Message sent to {} successfully.".format(destination["destination"]))
 	except Exception as e:
 		print("Exception occured when sending mail: {}".format(e))
 
@@ -98,6 +98,7 @@ def close_connection(server):
 	try:
 		print("Closing server connection...")
 		server.quit()
+		print("Session closed successfully.")
 	except Exception as e:
 		print("Exception occured when closing connection to SMTP: {}".format(e))
 

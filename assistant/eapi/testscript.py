@@ -7,6 +7,7 @@ account = "accountdetails.cfg"
 recipient = "destination.cfg"
 emailmessage = "message.email"
 
+# Next, use our API to send a message!
 server = initialize_client(account)
 message = construct_message(account, recipient, emailmessage)
 send_message(account, recipient, message, server)
