@@ -15,7 +15,7 @@ emailmessage = "message.email"
 # > account: json file with schema
 # >> { login:email, password:emailpassword }	
 # Returns
-# N/A
+# server: SMTP connection to mail server
 def initialize_client(account):
 	# Set up a server that we can use
 	print("Getting SMTP from gmail port 587...")
@@ -39,6 +39,7 @@ def initialize_client(account):
 		print("Exception occured: {} Exiting...".format(e))
 		server.quit()
 		exit(1)
+	return server
 
 # This ( message builder )
 # Takes
@@ -65,10 +66,18 @@ def construct_message(recipient, emailmessage):
 	msg = msg.as_string()
 	return msg
 
+# This ( message sender )
+# Takes
+# > message: string constructed by python MIME library
+# > server: connection to email SMTP server returned by initializer
+# Returns
+# N/A
+def send message(message, server):
 try:
 	print("Sending email message.")
 	server.sendmail(details["login"], destination["destination"], msg)
 except Exception as e:
-	print("Exception occured: {}".format(e))
-finally:
-	server.quit()
+	print("Exception occured when sending mail: {}".format(e))
+
+
+
