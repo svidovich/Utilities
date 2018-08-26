@@ -86,8 +86,8 @@ def send_message(account, recipient, message, server):
 	with open(recipient, "r") as file:
 		destination = json.load(file)
 	try:
-		print("Sending email message.")
-		server.sendmail(details["login"], destination["destination"], msg)
+		print("Sending email message...")
+		server.sendmail(details["login"], destination["destination"], message)
 	except Exception as e:
 		print("Exception occured when sending mail: {}".format(e))
 
@@ -96,6 +96,7 @@ def send_message(account, recipient, message, server):
 # > server: connection to email SMTP server returned by initializer
 def close_connection(server):
 	try:
+		print("Closing server connection...")
 		server.quit()
 	except Exception as e:
 		print("Exception occured when closing connection to SMTP: {}".format(e))

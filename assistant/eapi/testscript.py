@@ -9,5 +9,5 @@ emailmessage = "message.email"
 
 server = initialize_client(account)
 message = construct_message(account, recipient, emailmessage)
-send_message(message, server)
+send_message(account, recipient, message, server)
 close_connection(server)
