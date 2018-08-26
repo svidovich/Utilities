@@ -19,7 +19,10 @@ emailmessage = "message.email"
 def initialize_client(account):
 	# Set up a server that we can use
 	print("Getting SMTP from gmail port 587...")
-	server = smtplib.SMTP('smtp.gmail.com',587)
+	try:
+		server = smtplib.SMTP('smtp.gmail.com',587)
+	except Exception as e:
+		print("Problem setting up SMTP: {} Exiting...".format(e))
 	print("Getting account details...")
 	try:
 	with open(account, 'r') as file:
