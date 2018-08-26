@@ -1,14 +1,12 @@
+# I do not yet know if the user will have to import these.
+# This is because I suck at python.
+
 import sys
 import smtplib
 import json
 from email.MIMEMultipart import MIMEMultipart
 from email.MIMEText import MIMEText
 
-
-# We need to get our settings from file
-account = "accountdetails.cfg"
-recipient = "destination.cfg"
-emailmessage = "message.email"
 
 # This ( initializer )
 # Takes
@@ -74,11 +72,19 @@ def construct_message(account, recipient, emailmessage):
 
 # This ( message sender )
 # Takes
+# > account: filename of json file with schema
+# >> { login:email, password:emailpassword }	
+# > recipient: filename of json file with schema
+# >> { destination:recipientemailaddress )
 # > message: string constructed by python MIME library; returned by construct_message
 # > server: connection to email SMTP server returned by initializer
 # Returns
 # N/A
-def send message(message, server):
+def send_message(account, recipient, message, server):
+	with open(account, 'r') as file:
+		details = json.load(file)
+	with open(recipient, "r") as file:
+		destination = json.load(file)
 	try:
 		print("Sending email message.")
 		server.sendmail(details["login"], destination["destination"], msg)
