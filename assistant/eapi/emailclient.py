@@ -25,8 +25,8 @@ def initialize_client(account):
 		print("Problem setting up SMTP: {} Exiting...".format(e))
 	print("Getting account details...")
 	try:
-	with open(account, 'r') as file:
-		details = json.load(file)
+		with open(account, 'r') as file:
+			details = json.load(file)
 	except Exception as e:
 		print("Problem getting account details: {} Exiting...".format(e))
 		exit(1)
@@ -43,20 +43,26 @@ def initialize_client(account):
 
 # This ( message builder )
 # Takes
+# > account: filename of json file with schema
+# >> { login:email, password:emailpassword }	
 # > recipient: filename of json file with schema
 # >> { destination:recipientemailaddress )
 # > emailmessage: filename of json file with schema
 # >> { subject:emailsubjectline, body:emailbodytosend }
 # Returns
 # > email message according to python MIME lib as string
-def construct_message(recipient, emailmessage):
+def construct_message(account, recipient, emailmessage):
 	try:
+		with open(account, 'r') as file:
+			details = json.load(file)
 		with open(recipient, "r") as file:
 			destination = json.load(file)
 		with open(emailmessage, "r") as file:
 			message = json.load(file)
 	except Exception as e:
 		print("An Exception occured when constructing an email message: {} Exiting...".format(e))
+		# We want to exit here because if we can't open these files and continue, we will be
+		# constructing a bunch of null garbage.
 		exit(1)
 	msg = MIMEMultipart()
 	msg['From'] = details["login"]
@@ -68,7 +74,7 @@ def construct_message(recipient, emailmessage):
 
 # This ( message sender )
 # Takes
-# > message: string constructed by python MIME library
+# > message: string constructed by python MIME library; returned by construct_message
 # > server: connection to email SMTP server returned by initializer
 # Returns
 # N/A
