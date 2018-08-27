@@ -4,11 +4,11 @@ from emailclient import *
 
 # We need to get our settings from file
 account = "accountdetails.cfg"
-recipient = "destination.cfg"
+recipients = "destinations.cfg"
 emailmessage = "message.email"
 
 # Next, use our API to send a message!
 server = initialize_client(account)
-message = construct_message(account, recipient, emailmessage)
-send_message(account, recipient, message, server)
+messageContainer = construct_message_multiple_destinations(account, recipients, emailmessage)
+send_message_multiple_destinations(account, recipients, messageContainer, server)
 close_connection(server)
