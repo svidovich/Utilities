@@ -91,6 +91,46 @@ def send_message(account, recipient, message, server):
 	except Exception as e:
 		print("Exception occured when sending mail: {}".format(e))
 
+
+# This ( multiple destination email sender )
+# Takes
+# > account: filename of json file with schema
+# >> { login:email, password:emailpassword }	
+# > recipients: filename of json file with schema
+# >> { destinations:[recipientemailaddress1, recipientemailaddress2,...] } 
+# > emailmessage: filename of json file with schema
+# >> { subject:emailsubjectline, body:emailbodytosend }
+# Returns
+# > messages: list of email messages according to python MIME library in a list as strings
+def construct_message_multiple_destinations(account, recipients, emailmessage):
+	try:
+		print("Getting details for construction of message...")
+		with open(account, 'r') as file:
+			details = json.load(file)
+		with open(recipient, "r") as file:
+			destinations = json.load(file)
+		with open(emailmessage, "r") as file:
+			message = json.load(file)
+		print("Details retrieved successfully.")
+	except Exception as e:
+		print("An Exception occured when constructing an email message: {} Exiting...".format(e))
+		# We want to exit here because if we can't open these files and continue, we will be
+		# constructing a bunch of null garbage.
+		exit(1)
+	numberOfDestinations = len(destinations["destinations"])
+	messageContainer = []
+	for i in range(numberOfDestinations):
+		msg = MIMEMultipart()
+		msg['From'] = details["login"]
+		msg['To'] = destinations["destinations"][i]
+		msg['Subject'] = message["subject"]
+		msg.attach(MIMEText(message["body"], 'plain'))
+		msg = msg.as_string()
+		messageContainer.append(msg)
+	return msg
+
+
+
 # This ( connection closer )
 # Takes
 # > server: connection to email SMTP server returned by initializer
