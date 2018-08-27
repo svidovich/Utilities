@@ -41,7 +41,7 @@ def initialize_client(account):
 # > account: filename of json file with schema
 # >> { login:email, password:emailpassword }	
 # > recipient: filename of json file with schema
-# >> { destination:recipientemailaddress )
+# >> { destination:recipientemailaddress } 
 # > emailmessage: filename of json file with schema
 # >> { subject:emailsubjectline, body:emailbodytosend }
 # Returns
