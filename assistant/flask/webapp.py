@@ -14,8 +14,18 @@ def form():
 
 @app.route('/assistant', methods=['POST'])
 def assistant_application():
-	usr_entry = request.form.get('text')
-	return usr_entry
+	account = "./eapi/accountdetails.cfg"
+	recipient = "./eapi/destination.cfg"
+	emailmessage = "message.email"
+	server = initialize_client(account)
+	subject = request.form.get('subject')
+	body = request.form.get('body')
+	with open(emailmessage, 'w') as file:
+		file.write('{"subject":"{}", "body":"{}"'.format(subject, body))
+	message = construct_message(account, recipient, emailmessage)
+	send_message(account, recipient, message, server)
+	close_connection(server)
+	return "Message sent!"
 
 if __name__ == "__main__":
     app.run()
