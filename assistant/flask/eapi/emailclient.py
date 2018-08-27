@@ -92,7 +92,7 @@ def send_message(account, recipient, message, server):
 		print("Exception occured when sending mail: {}".format(e))
 
 
-# This ( multiple destination email sender )
+# This ( multiple destination email constructor )
 # Takes
 # > account: filename of json file with schema
 # >> { login:email, password:emailpassword }	
@@ -101,7 +101,7 @@ def send_message(account, recipient, message, server):
 # > emailmessage: filename of json file with schema
 # >> { subject:emailsubjectline, body:emailbodytosend }
 # Returns
-# > messages: list of email messages according to python MIME library in a list as strings
+# > messageContainer: list of email messages according to python MIME library in a list as strings
 def construct_message_multiple_destinations(account, recipients, emailmessage):
 	try:
 		print("Getting details for construction of message...")
@@ -127,8 +127,31 @@ def construct_message_multiple_destinations(account, recipients, emailmessage):
 		msg.attach(MIMEText(message["body"], 'plain'))
 		msg = msg.as_string()
 		messageContainer.append(msg)
-	return msg
+	return messageContainer
 
+
+# This ( multiple destination email sender )
+# Takes
+# > account: filename of json file with schema
+# >> { login:email, password:emailpassword }	
+# > recipients: filename of json file with schema
+# >> { destinations:[recipientemailaddress1, recipientemailaddress2,...] } 
+# > messageContainer: string list constructed by python MIME library; returned by construct_message_multiple_destinations
+# > server: connection to email SMTP server returned by initializer
+# Returns
+# N/A
+
+def send_message_multiple_destinations(account, recipients, messageContainer, server):
+	with open(account, 'r') as file:
+		details = json.load(file)
+	with open(recipient, "r") as file:
+		destination = json.load(file)
+	try:
+		print("Sending email message...")
+		server.sendmail(details["login"], destination["destination"], message)
+		print("Message sent to {} successfully.".format(destination["destination"]))
+	except Exception as e:
+		print("Exception occured when sending mail: {}".format(e))
 
 
 # This ( connection closer )
