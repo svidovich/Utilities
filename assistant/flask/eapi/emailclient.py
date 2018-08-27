@@ -144,14 +144,16 @@ def construct_message_multiple_destinations(account, recipients, emailmessage):
 def send_message_multiple_destinations(account, recipients, messageContainer, server):
 	with open(account, 'r') as file:
 		details = json.load(file)
-	with open(recipient, "r") as file:
-		destination = json.load(file)
-	try:
-		print("Sending email message...")
-		server.sendmail(details["login"], destination["destination"], message)
-		print("Message sent to {} successfully.".format(destination["destination"]))
-	except Exception as e:
-		print("Exception occured when sending mail: {}".format(e))
+	with open(recipients, "r") as file:
+		destinations = json.load(file)
+	numberOfMessages = len(messageContainer)
+	for i in range(numberOfMessages):
+		try:
+			print("Sending email message...")
+			server.sendmail(details["login"], destinations["destinations"][i], messageContainer[i])
+			print("Message sent to {} successfully.".format(destination["destination"]))
+		except Exception as e:
+			print("Exception occured when sending mail: {}".format(e))
 
 
 # This ( connection closer )
