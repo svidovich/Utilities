@@ -204,7 +204,6 @@ def construct_multiple_destinations_file(destinations, filename):
 		data = dict({"destinations":destinations})
 		with open(filename, "w") as file:
 			json.dump(data, file)
-		return data
 	except Exception as e:
 		print("Exception occured when constructing a destinations file: {}".format(e))
 
@@ -217,4 +216,11 @@ def construct_multiple_destinations_file(destinations, filename):
 # Returns
 # N/A
 def construct_account_details_file(username, password, filename):
-	pass
+	try:
+		data = dict({"username":username, "password":password})
+		with open(filename, "w") as file:
+			json.dump(data, file)
+	except Exception as e:
+		print("Exception occured when constructing an account details file: {}".format(e))
+
+
