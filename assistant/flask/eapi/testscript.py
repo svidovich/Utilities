@@ -6,6 +6,14 @@ from emailclient import *
 account = "accountdetails.cfg"
 recipients = "destinations.cfg"
 emailmessage = "message.email"
+destinations = ["samuel.vidovich@gmail.com", "nicholas.vidovich@gmail.com", "hannah.appleconnect@gmail.com"]
+username = "mydriasis.assistant@gmail.com"
+password = "099566421"
+
+
+# Let's build some files using our API
+construct_account_details_file(username, password, account)
+construct_multiple_destinations_file(destinations, recipients)
 
 # Next, use our API to send a message!
 server = initialize_client(account)

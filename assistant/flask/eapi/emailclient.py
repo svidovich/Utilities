@@ -201,6 +201,7 @@ def send_message_multiple_destinations(account, recipients, messageContainer, se
 
 def construct_multiple_destinations_file(destinations, filename):
 	try:
+		print("Making destinations file...")
 		data = dict({"destinations":destinations})
 		with open(filename, "w") as file:
 			json.dump(data, file)
@@ -217,6 +218,7 @@ def construct_multiple_destinations_file(destinations, filename):
 # N/A
 def construct_account_details_file(username, password, filename):
 	try:
+		print("Making account details file for user {}...".format(username))
 		data = dict({"username":username, "password":password})
 		with open(filename, "w") as file:
 			json.dump(data, file)
