@@ -200,7 +200,13 @@ def send_message_multiple_destinations(account, recipients, messageContainer, se
 # N/A
 
 def construct_multiple_destinations_file(destinations, filename):
-	pass
+	try:
+		data = dict({"destinations":destinations})
+		with open(filename, "w") as file:
+			json.dump(data, file)
+		return data
+	except Exception as e:
+		print("Exception occured when constructing a destinations file: {}".format(e))
 
 # This ( account details file builder )
 # It ( builds a json file that has account details for the sender in the proper schema )
