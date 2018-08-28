@@ -5,12 +5,18 @@ from email.MIMEMultipart import MIMEMultipart
 from email.MIMEText import MIMEText
 
 
+#####################################################################################
+# The following functions are to do with the connection with the server required to #
+# send emails.									    #
+#####################################################################################
+
 # This ( initializer )
 # Takes
 # > account: filename of json file with schema
 # >> { login:email, password:emailpassword }	
 # Returns
 # server: SMTP connection to mail server
+
 def initialize_client(account):
 	# Set up a server that we can use
 	print("Getting SMTP from gmail port 587...")
@@ -36,6 +42,25 @@ def initialize_client(account):
 		exit(1)
 	return server
 
+
+# This ( connection closer )
+# Takes
+# > server: connection to email SMTP server returned by initializer
+
+def close_connection(server):
+	try:
+		print("Closing server connection...")
+		server.quit()
+		print("Session closed successfully.")
+	except Exception as e:
+		print("Exception occured when closing connection to SMTP: {}".format(e))
+
+
+
+#########################################################################################
+# The following functions are to do with sending files to singular destinations.        #
+#########################################################################################
+
 # This ( message builder )
 # Takes
 # > account: filename of json file with schema
@@ -46,6 +71,7 @@ def initialize_client(account):
 # >> { subject:emailsubjectline, body:emailbodytosend }
 # Returns
 # > email message according to python MIME lib as string
+
 def construct_message(account, recipient, emailmessage):
 	try:
 		print("Getting details for construction of message...")
@@ -79,6 +105,7 @@ def construct_message(account, recipient, emailmessage):
 # > server: connection to email SMTP server returned by initializer
 # Returns
 # N/A
+
 def send_message(account, recipient, message, server):
 	with open(account, 'r') as file:
 		details = json.load(file)
@@ -91,6 +118,9 @@ def send_message(account, recipient, message, server):
 	except Exception as e:
 		print("Exception occured when sending mail: {}".format(e))
 
+############################################################################################
+# The following functions have to do with emails to multiple destinations.                 #
+############################################################################################
 
 # This ( multiple destination email constructor )
 # Takes
@@ -102,6 +132,7 @@ def send_message(account, recipient, message, server):
 # >> { subject:emailsubjectline, body:emailbodytosend }
 # Returns
 # > messageContainer: list of email messages according to python MIME library in a list as strings
+
 def construct_message_multiple_destinations(account, recipients, emailmessage):
 	try:
 		print("Getting details for construction of message...")
@@ -156,15 +187,28 @@ def send_message_multiple_destinations(account, recipients, messageContainer, se
 			print("Exception occured when sending mail: {}".format(e))
 
 
-# This ( connection closer )
+###########################################################################################
+# The following are other miscellanious functions that can be used as utilities.          #
+###########################################################################################
+
+# This ( multiple destination file builder )
+# It ( makes a json file that has all of the destinations for an email in the proper schema )
 # Takes
-# > server: connection to email SMTP server returned by initializer
-def close_connection(server):
-	try:
-		print("Closing server connection...")
-		server.quit()
-		print("Session closed successfully.")
-	except Exception as e:
-		print("Exception occured when closing connection to SMTP: {}".format(e))
+# > destinations: a list of strings that are email addresses
+# > filename: a string for the filename which will contain the addresses
+# Returns
+# N/A
 
+def construct_multiple_destinations_file(destinations, filename):
+	pass
 
+# This ( account details file builder )
+# It ( builds a json file that has account details for the sender in the proper schema )
+# Takes
+# > username: a username email string, example@gmail.com
+# > password: a password string, mypassword123! -- should be compatible with GMail TODO
+# > filename: a string for the filename which will contain the details
+# Returns
+# N/A
+def construct_account_details_file(username, password, filename):
+	pass
