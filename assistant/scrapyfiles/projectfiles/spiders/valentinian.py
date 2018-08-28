@@ -36,7 +36,17 @@ class valentinianLibrarySpider(Spider):
 			elif "../" in href:
 				href = href.split("/")[-1]
 				url = "http://www.gnosis.org/library/{}".format(href)
-			print(url)
-			print(title)
+			yield Request(url=url, meta={'title':title}, callback=self.collect_writing)
+
+    def collect_writing(self, response):
+	text = ''
+	for node in response.xpath('//p'):
+		text += node.xpath('string()').extract()[0]
+	title = "valentinian-teachings " + response.meta["title"] + ".gno"
+	with open(title, "w") as file:
+		file.write(text)
+	current = os.path.join(self.pwd, title)
+	moved = os.path.join(self.pwd, 'archives', title)
+	os.rename(current, moved)
 
 
