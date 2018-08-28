@@ -33,5 +33,13 @@ class pistisSophiaSpider(Spider):
 			url = "http://www.gnosis.org/library/pistis-sophia/{}".format(href)
 			yield Request(url=url, meta={'chapter':chapter}, callback=self.collect_chapter)
 
-   def collect_chapter(self, response):
-	pass
+    def collect_chapter(self, response):
+	text = ''
+	for node in response.xpath('//p'):
+		text += node.xpath('string()').extract()[0]
+	title = "pistis-sophia " + response.meta["chapter"] + ".gno"
+	with open(title, "w") as file:
+		file.write(text)
+	current = os.path.join(self.pwd, title)
+	moved = os.path.join(self.pwd, 'archives', title)
+	os.rename(current, moved)
