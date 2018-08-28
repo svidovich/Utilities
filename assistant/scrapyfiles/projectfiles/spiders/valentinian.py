@@ -30,7 +30,13 @@ class valentinianLibrarySpider(Spider):
 	for node in response.xpath('//ol//a').extract():
 		for href, title in re.findall('href="(.*)" target="_blank">(.*)</a>', node):
 			title = title.replace("<i>", "").replace("</i>", "")
-			print(href)
+			if "../../" in href:
+				href = href.split("../")[-1]
+				url = "http://www.gnosis.org/{}".format(href)
+			elif "../" in href:
+				href = href.split("/")[-1]
+				url = "http://www.gnosis.org/library/{}".format(href)
+			print(url)
 			print(title)
 
 
