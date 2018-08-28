@@ -37,7 +37,7 @@ def initialize_client(account):
 		server.starttls()
 		server.login(details["login"], details["password"])
 	except Exception as e:
-		print("Exception occured: {} Exiting...".format(e))
+		print("Exception occured during client initialization: {} Exiting...".format(e))
 		server.quit()
 		exit(1)
 	return server
@@ -219,7 +219,7 @@ def construct_multiple_destinations_file(destinations, filename):
 def construct_account_details_file(username, password, filename):
 	try:
 		print("Making account details file for user {}...".format(username))
-		data = dict({"username":username, "password":password})
+		data = dict({"login":username, "password":password})
 		with open(filename, "w") as file:
 			json.dump(data, file)
 	except Exception as e:
