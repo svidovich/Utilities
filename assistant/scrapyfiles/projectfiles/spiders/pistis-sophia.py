@@ -26,3 +26,7 @@ class pistisSophiaSpider(Spider):
         url = "http://www.gnosis.org/library/pistis-sophia/index.htm"
         yield Request(url=url, callback=self.search_library)
 
+    def search_library(self, response):
+	html = response.xpath('/html/body/table/tr/td[2]/blockquote[2]').extract()[0]
+	for href, chapter in re.findall('href="(.*?)">(.*?)</a>', html, re.DOTALL):
+		print("{}\n{}\n".format(href, chapter))
