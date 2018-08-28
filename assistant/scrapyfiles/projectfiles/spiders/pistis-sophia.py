@@ -29,4 +29,9 @@ class pistisSophiaSpider(Spider):
     def search_library(self, response):
 	html = response.xpath('/html/body/table/tr/td[2]/blockquote[2]').extract()[0]
 	for href, chapter in re.findall('href="(.*?)">(.*?)</a>', html, re.DOTALL):
-		print("{}\n{}\n".format(href, chapter))
+		if "Chapter" in chapter:
+			url = "http://www.gnosis.org/library/pistis-sophia/{}".format(href)
+			yield Request(url=url, meta={'chapter':chapter}, callback=self.collect_chapter)
+
+   def collect_chapter(self, response):
+	pass
