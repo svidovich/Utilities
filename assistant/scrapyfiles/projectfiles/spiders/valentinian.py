@@ -24,6 +24,13 @@ class valentinianLibrarySpider(Spider):
     allowed_domains = ["gnosis.org"]
     def start_requests(self):
         url = "http://www.gnosis.org/library/valentinus/Valentinian_Writings.htm"
-        yield Request(url=url, callback=self.search_library)
+        yield Request(url=url, callback=self.collect_links)
+
+    def collect_links(self, response):
+	for node in response.xpath('//ol//a').extract():
+		for href, title in re.findall('href="(.*)" target="_blank">(.*)</a>', node):
+			title = title.replace("<i>", "").replace("</i>", "")
+			print(href)
+			print(title)
 
 
