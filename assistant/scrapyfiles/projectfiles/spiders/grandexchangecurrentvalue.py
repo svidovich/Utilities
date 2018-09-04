@@ -26,5 +26,6 @@ class naghammadiSpider(Spider):
         yield Request(url=url, callback=self.parse_item)
 
     def parse_item(self, response):
-	print(response.xpath('//*[@id="grandexchange"]/div/div/main/div[2]/script').extract()[0])
-
+	html = response.xpath('//*[@id="grandexchange"]/div/div/main/div[2]/script/text()').extract()[0].split(';')
+        html[:] = [element.replace("\r","").replace("\n","").replace("\t","").strip() for element in html]
+	print(html)
