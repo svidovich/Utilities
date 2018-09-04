@@ -22,6 +22,9 @@ class naghammadiSpider(Spider):
     allowed_domains = ["runescape.com"]
     def start_requests(self, url=None):
 	# Currently using an actual URL for testing purposes
-        url = ""
-        yield Request(url=url, callback=self.search_library)
+        url = "http://services.runescape.com/m=itemdb_oldschool/viewitem?obj=1305"
+        yield Request(url=url, callback=self.parse_item)
+
+    def parse_item(self, response):
+	print(response.xpath('//body').extract()[0])
 
