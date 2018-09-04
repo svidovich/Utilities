@@ -28,4 +28,9 @@ class naghammadiSpider(Spider):
     def parse_item(self, response):
 	html = response.xpath('//*[@id="grandexchange"]/div/div/main/div[2]/script/text()').extract()[0].split(';')
         html[:] = [element.replace("\r","").replace("\n","").replace("\t","").strip() for element in html]
-	print(html)
+	entries = []
+	for entry in html:
+		if "average30.push" in entry:
+			entries.append(entry)
+	pricetoday = entries[-1].split(",")[1].replace(" ", "")
+	print("\nToday's price: {}\n".format(pricetoday))
