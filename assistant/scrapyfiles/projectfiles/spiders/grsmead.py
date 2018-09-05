@@ -36,3 +36,9 @@ class grsmeadSpider(Spider):
 	text = ''
 	for node in response.xpath('//p'):
 		text += node.xpath('string()').extract()[0]
+	title = "grs-mead " + response.meta["title"] + ".gno"
+	with open(title, "w") as file:
+		file.write(text)
+	current = os.path.join(self.pwd, title)
+	moved = os.path.join(self.pwd, 'archives', title)
+	os.rename(current, moved)
