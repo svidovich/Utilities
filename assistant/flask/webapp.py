@@ -5,6 +5,8 @@ import sys
 import os
 import shutil
 import json
+import time
+import uuid
 from eapi.emailclient import *
 
 app = Flask(__name__, instance_relative_config=True, static_url_path='/static')
@@ -17,9 +19,17 @@ def form():
 def assistant_application():
 	options = []
 	emailaddress = request.form.get('email')
-	options.append(request.form.get('gnosis'))
-	options.append(request.form.get('stocks'))
-	return "Message sent! {}".format(options)
+	if '@' not in emailaddress:
+		return "Please use a valid email address."
+	if request.form.get('gnosis') is not None:
+		options.append(request.form.get('gnosis'))
+	if request.form.get('stocks') is not None:
+		options.append(request.form.get('stocks'))
+	userdetails = {}
+	userdetails['email'] = emailaddress
+	userdetails['options'] = options
+	# TODO Connect a database of users c:
+	return "{}".format(userdetails)
 
 if __name__ == "__main__":
     app.run()
