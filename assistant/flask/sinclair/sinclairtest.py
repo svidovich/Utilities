@@ -1,3 +1,6 @@
 from sinclairapi import *
+import os
 
-midnight()
+#has_sent_email()
+if 'batchsent' in os.environ:
+	print("it works")
