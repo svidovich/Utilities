@@ -29,4 +29,10 @@ class grsmeadSpider(Spider):
     def search_library(self, response):
 	html = response.xpath('/html/body').extract()[0]
 	for href, title in re.findall('<b><a href="(.*?)">(.*?)</a></b>', html, re.DOTALL):
-		print("{} {}".format(href, title))
+		url = 'http://www.gnosis.org/library/grs-mead/{}'.format(href)
+		title = title.replace('<br/>','')
+		yield Request(url=url, meta={'title':title}, callback=self.parse_text)
+    def parse_text(self, response):
+	text = ''
+	for node in response.xpath('//p'):
+		text += node.xpath('string()').extract()[0]
