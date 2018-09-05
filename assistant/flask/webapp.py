@@ -15,19 +15,11 @@ def form():
 
 @app.route('/assistant', methods=['POST'])
 def assistant_application():
-	account = "./eapi/accountdetails.cfg"
-	recipient = "./eapi/destination.cfg"
-	emailmessage = "message.email"
-	server = initialize_client(account)
-	emailsubject = request.form.get('subject')
-	emailbody = request.form.get('body')
-	emaildata = { "subject":emailsubject, "body":emailbody }
-	with open(emailmessage, 'w') as file:
-		file.write(json.dumps(emaildata))
-	message = construct_message(account, recipient, emailmessage)
-	send_message(account, recipient, message, server)
-	close_connection(server)
-	return "Message sent!"
+	options = []
+	emailaddress = request.form.get('email')
+	options.append(request.form.get('gnosis'))
+	options.append(request.form.get('stocks'))
+	return "Message sent! {}".format(options)
 
 if __name__ == "__main__":
     app.run()
