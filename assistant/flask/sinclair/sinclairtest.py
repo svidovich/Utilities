@@ -1,0 +1,3 @@
+from sinclairapi import *
+
+midnight()
