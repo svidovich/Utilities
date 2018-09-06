@@ -41,7 +41,12 @@ class listerSpider(Spider):
 
 	def start_requests(self):
 		url = 'https://www.youtube.com/playlist?list=FLQaroSiSNdFLMlPgpB6Ah7Q'
-		yield SplashRequest(url=url, callback=self.parse_playlist)
+		yield SplashRequest(url=url, 
+					callback=self.parse_playlist,
+					endpoint='execute',
+					args={
+						'lua_source':self.script
+					})
 	def parse_playlist(self, response):
 		html = response.xpath('//*[@id="contents"]').extract()[0]
 		print(html)
