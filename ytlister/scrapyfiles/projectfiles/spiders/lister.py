@@ -18,7 +18,7 @@ class listerSpider(Spider):
 	function main(splash)
 		local url = splash.args.url
 		assert(splash:go(url))
-		assert(splash:wait(1))
+		assert(splash:wait(2))
 		return{
 			html = splash:html()
 		}
@@ -48,7 +48,7 @@ class listerSpider(Spider):
 						'lua_source':self.script
 					})
 	def parse_playlist(self, response):
-		html = response.xpath('//*[@id="contents"]').extract()[0]
+		html = response.xpath('//a[@href]').extract()[0]
 		print(html)
 
 
