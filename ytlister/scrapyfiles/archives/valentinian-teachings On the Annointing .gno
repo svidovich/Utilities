@@ -1,5 +1,0 @@
-  
-     
-      The Nag Hammadi Library 
-  
-        

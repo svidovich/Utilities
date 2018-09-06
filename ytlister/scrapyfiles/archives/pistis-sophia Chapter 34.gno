@@ -1,3 +1,0 @@
-
- Pistis Sophia
-translated by G. S. R. MeadIt came to pass then, when Mary had finished speaking these words unto Jesus in the midst of the disciples, that she said unto him: "My Lord, this is the solution of the mystery of the repentance of Pistis Sophia."|56.It came to pass then, when Jesus had heard Mary speak these words, that he said unto her: "Well said, Mary, blessed one, the fulness, or all-blessed fulness, thou who shalt be sung of as blessed in all generations."Return to the Gnostic Society Library

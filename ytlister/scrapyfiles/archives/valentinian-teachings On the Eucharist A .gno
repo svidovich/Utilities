@@ -1,9 +1,0 @@
-  
-     
-      The Nag Hammadi Library  We give thanks to you and we celebrate the eucharist, O Father,
-    remembering for the sake of thy Son, Jesus Christ that they come
-    forth [...] invisible [...] thy [Son....] his [love...] to [knowledge ......]
-    they are doing thy will through the name of Jesus Christ and will
-    do thy will now and always. They are complete in every spiritual gift
-    and every purity. Glory be to thee through thy Son and they offspring
-    Jesus Christ from now and forever. Amen.    

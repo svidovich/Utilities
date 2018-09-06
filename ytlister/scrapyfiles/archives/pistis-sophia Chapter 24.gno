@@ -1,3 +1,0 @@
-
- Pistis Sophia
-translated by G. S. R. MeadMary questioneth him again.It came to pass then, when Jesus had finished saying these words unto his disciples, that Mary, the fair in her discourse and the blessed one, came forward, fell at the feet of Jesus and said: "My Lord, suffer me that I speak before thee, and be |34. not wroth with me, if oft I give thee trouble questioning thee."The Saviour, full of compassion, answered and said unto Mary: "Speak the word which thou willest, and I will reveal it to thee in all openness."Mary answered and said unto Jesus: "My Lord, in what way will the souls have delayed themselves here outside, and in what type will they be quickly purified?"Return to the Gnostic Society Library
