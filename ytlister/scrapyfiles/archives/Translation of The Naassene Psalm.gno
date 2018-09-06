@@ -1,0 +1,16 @@
+
+     
+     
+      This is an  excerpt from a Gnostic psalm quoted by Hippolytus in his Refutation of All Heresies (Book 5 Chapter 5) and attributed
+       to the Naasene Gnostics, who existed under the reign of Hadrian (110 AD to 140 AD). The fragment refers to the plight of Sophia, lost in the chaos of creation, and the intention of Jesus to rescue Her. It is provided below in two translations -- we suggest reading both to get the full meaning of the psalm.This is a  modern but somewhat inelegant translation of Hippolytus:
+              "The Law of Universal Genesis was the first born nous; the second, Chaos shed
+              by the firstborn. The third was received by the soul [.....] Clad in the shape of a hind
+              She [Sophia] is worn away with death's slavery. Now She has mastery and glimpses light: now She is
+              plunged in misery and weeps. Now She is mourned, and her self rejoices. Now she weeps and
+              is finally condemned. Now She is condemned and finally dies. And now She reaches the point
+              where hemmed in by evil, She knows no way out. Misled, She has entered a labyrinth. Then
+              Jesus said, "Behold, Father, she wanders the earth pursued by evil. Far from thy
+              Breath she is going astray. She is trying to flee bitter Chaos, and does not know how she
+              is to escape. Send me forth, O Father, therefore, and I, bearing the seal shall descend
+              and wander all Aeons through, all mysteries reveal. I shall manifest the forms of the gods
+              and teach them the secrets of the holy way which I call Gnosis [.....]" This is the nineteenth-century translation as  provided in the  Ante-Nicene Fathers edition of Hippolytus, Refutation of All Heresies (Book 5 Chapter 5):EXPLANATION OF THE SYSTEM OF THE NAASSENI TAKEN FROM ONE OF THEIR HYMNS.The foregoing remarks, then, though few out of many, we have thought proper to bring forward. For innumerable are the silly and crazy attempts of folly. But since, to the best of our ability, we have explained the unknown Gnosis, it seemed expedient likewise to adduce the following point. This psalm of theirs has been composed, by which they seem to celebrate all the mysteries of the error (advanced by) them in a hymn, couched in the following terms:  The world's producing law was Primal Mind,And next was First-born's outpoured Chaos; And third, the soul received its law of toil:Encircl'd, therefore, with an acqueous form, With care o'erpowered it succumbs to death.Now holding sway, it eyes the light, And now it weeps on misery flung; Now it mourns, now it thrills with joy; Now it wails, now it hears its doom; Now it hears its doom, now it dies, And now it leaves us, never to return.It, hapless straying, treads the maze of ills.But Jesus said, Father, behold, A strife of ills across the earth Wanders from thy breath (of wrath); But bitter Chaos (man) seeks to shun, And knows not how to pass it through.On this account, O Father, send me; Bearing seals, I shall descend; Through ages whole I'll sweep, All mysteries I'll unravel, And forms of Gods I'll show; And secrets of the saintly path, Styled "Gnosis," I'll impart. 

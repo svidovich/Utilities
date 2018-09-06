@@ -1,0 +1,7 @@
+  
+     
+      The Nag Hammadi Library  [...] in the [...] the word of the [....the] holy one it is [...] food and [drink...] Son,
+since you [...] food of the [...] to us the [...] in the [life ..] he does  [not boast...]
+that is[...] Church [...] you are pure [...] thou art the Lord. Whenever you die purely, you
+will be pure so as to have him [...] everyone who will guide him to food and drink. Glory
+be to thee forever. Amen.     
