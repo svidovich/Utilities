@@ -48,11 +48,12 @@ class listerSpider(Spider):
 						'lua_source':self.script
 					})
 	def parse_playlist(self, response):
-		html = response.xpath('//td[@class="pl-video-title"]').extract()[0]
-		for href in re.findall('href="(.*)"', html):
-			if 'user' not in href:
-				print(href.split('&amp')[0])
-#		print(html)
+		vidlist = response.xpath('//td[@class="pl-video-title"]').extract()
+		for html in vidlist:
+			for href in re.findall('href="(.*)"', html):
+				if not any( z in href for z in ['user', 'channel']):
+					print(href.split('&amp')[0])
+	#		print(html)
 
 
 #current = os.path.join(self.pwd, title)
