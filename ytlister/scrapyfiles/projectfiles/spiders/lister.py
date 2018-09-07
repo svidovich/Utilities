@@ -40,7 +40,7 @@ class listerSpider(Spider):
 	}
 
 	def start_requests(self):
-		url = 'https://www.youtube.com/playlist?list=FLQaroSiSNdFLMlPgpB6Ah7Q'
+		url = 'https://www.youtube.com/playlist?list=FLQaroSiSNdFLMlPgpB6Ah7Q&disable_polymer=true'
 		yield SplashRequest(url=url, 
 					callback=self.parse_playlist,
 					endpoint='execute',
@@ -48,8 +48,11 @@ class listerSpider(Spider):
 						'lua_source':self.script
 					})
 	def parse_playlist(self, response):
-		html = response.xpath('//a[@href]').extract()[0]
-		print(html)
+		html = response.xpath('//td[@class="pl-video-title"]').extract()[0]
+		for href in re.findall('href="(.*)"', html):
+			if 'user' not in href:
+				print(href.split('&amp')[0])
+#		print(html)
 
 
 #current = os.path.join(self.pwd, title)
