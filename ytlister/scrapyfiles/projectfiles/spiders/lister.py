@@ -50,10 +50,12 @@ class listerSpider(Spider):
 	def parse_playlist(self, response):
 		vidlist = response.xpath('//td[@class="pl-video-title"]').extract()
 		for html in vidlist:
+			entry = {}
+			entry['title'] = html.split('</a>')[0].split('>')[2].strip()
 			for href in re.findall('href="(.*)"', html):
 				if not any( z in href for z in ['user', 'channel']):
-					print(href.split('&amp')[0])
-	#		print(html)
+					entry['link'] = "https://www.youtube.com{}".format(href.split('&amp')[0])
+			print(entry)
 
 
 #current = os.path.join(self.pwd, title)
