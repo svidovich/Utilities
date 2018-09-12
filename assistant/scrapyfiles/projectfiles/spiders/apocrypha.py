@@ -20,16 +20,30 @@ class apocryphaSpider(Spider):
     # yapf: enable
     allowed_domains = ["gnosis.org"]
     def start_requests(self):
-        url = ""
+        url = "http://www.gnosis.org/library/cac.htm"
         yield Request(url=url, callback=self.search_library)
 
     def search_library(self, response):
-	html = response.xpath('/html/body').extract()[0]
+	html = response.xpath('//ul//a').extract()
+	for link in html:
+		href = re.findall('href="(.*?)">', link)[0]
+		description = re.findall('>(.*)</a>', link)[0]
+		if '..' in href:
+			pass
+		elif '/library/' in href:
+			url = 'http://www.gnosis.org{}'.format(href)
+		else:
+			url = 'http://www.gnosis.org/library/{}'.format(href)
+		try:
+			yield Request(url=url, meta={'title':description}, callback=self.parse_text)
+		except:
+			print('Skipped URL.')
+
     def parse_text(self, response):
 	text = ''
 	for node in response.xpath('//p'):
 		text += node.xpath('string()').extract()[0]
-	title = "grs-mead " + response.meta["title"] + ".gno"
+	title = "Apocrypha- " + response.meta["title"] + ".gno"
 	with open(title, "w") as file:
 		file.write(text)
 	current = os.path.join(self.pwd, title)
