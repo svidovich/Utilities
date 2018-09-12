@@ -18,26 +18,17 @@ class alchemySpider(Spider):
         'MEDIA_ALLOW_REDIRECTS': 'True',
         }
     # yapf: enable
-    allowed_domains = ["gnosis.org"]
+#    allowed_domains = ["gnosis.org"]
     def start_requests(self):
         url = "http://www.gnosis.org/library/alch.htm"
         yield Request(url=url, callback=self.search_library)
 
     def search_library(self, response):
-	html = response.xpath('//ul//a').extract()
+	html = response.xpath('//li/a').extract()
 	for link in html:
 		href = re.findall('href="(.*?)">', link)[0]
-		description = re.findall('>(.*)</a>', link)[0]
-		if '..' in href:
-			pass
-		elif '/library/' in href:
-			url = 'http://www.gnosis.org{}'.format(href)
-		else:
-			url = 'http://www.gnosis.org/library/{}'.format(href)
-		try:
-			yield Request(url=url, meta={'title':description}, callback=self.parse_text)
-		except:
-			print('Skipped URL.')
+		description = re.findall('>(.*?)</a>', link, re.DOTALL)[0]
+		yield Request(url=href, meta={'title':description}, callback=self.parse_text)
 
     def parse_text(self, response):
 	text = ''
