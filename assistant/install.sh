@@ -2,6 +2,7 @@ dir=$(pwd)
 cd $dir
 # Make executables
 chmod +x run.sh
+chmod +x uninstall.sh
 cd flask/
 chmod +x run_dev.sh
 cd eapi/
