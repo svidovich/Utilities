@@ -15,4 +15,4 @@ pip install flask
 
 command="./$dir/run.sh"
 # build cron job
-crontab -l | { cat; echo "00 8 * * 1-5 $command } | crontab -
+crontab -l | { cat; echo "00 8 * * 1-5 $command"; } | crontab -
