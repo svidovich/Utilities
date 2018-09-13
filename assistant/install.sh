@@ -13,6 +13,6 @@ sudo apt install -y python-pip python-dev build-essential
 sudo pip install --upgrade pip
 pip install flask
 
-command="./$dir/run.sh"
+command=".$dir/run.sh"
 # build cron job
 crontab -l | { cat; echo "00 8 * * 1-5 $command"; } | crontab -
