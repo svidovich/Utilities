@@ -13,8 +13,10 @@ class wikicategoryscraperSpider(Spider):
     name = "categories"
     custom_settings = {
         # This is important! It allows us to use the download links from the pages to get files!
-        'MEDIA_ALLOW_REDIRECTS': 'True',
-        'FEED_URI_OVERWRITE': 'False'
+        'MEDIA_ALLOW_REDIRECTS': True,
+	# This spider is meant to be run with no logging c:
+	'LOG_ENABLED': False,
+        'FEED_URI_OVERWRITE': False
         }
     allowed_domains = ["wikipedia.org"]
     phones = []
@@ -24,6 +26,7 @@ class wikicategoryscraperSpider(Spider):
     def __init__(self):
         dispatcher.connect(self.spider_closed, signals.spider_closed)
     def start_requests(self):
+	# Fill this with category pages
         urls = ["https://en.wikipedia.org/w/index.php?title=Category:Samsung_mobile_phones&pageuntil=Samsung+Galaxy+On8#mw-pages",
                 "https://en.wikipedia.org/w/index.php?title=Category:Samsung_mobile_phones&pagefrom=Samsung+Galaxy+On8#mw-pages",
                 "https://en.wikipedia.org/w/index.php?title=Category:Smartphones&pageuntil=List+of+smartphones+with+HD+Voice+support#mw-pages",
@@ -37,16 +40,16 @@ class wikicategoryscraperSpider(Spider):
                 "https://en.wikipedia.org/wiki/Category:Mobile_phones_introduced_in_2018",
                 "https://en.wikipedia.org/wiki/Category:IPhone"]
         for url in urls:
-            yield Request(url=url, callback=self.scry_phones)
-    def scry_phones(self, response):
+            yield Request(url=url, callback=self.scry_items)
+    def scry_items(self, response):
         phones = response.xpath('//div[@class="mw-category-group"]//li/a').extract()
         for phone in phones:
             matches = re.findall('href="(.*)" title="(.*)">', phone)
             for href, title in matches:
                 uid = title.replace(' ', '_').encode('utf-8')
                 url = 'https://en.wikipedia.org/w/index.php?title={}&action=edit'.format(uid)
-                yield Request(url = url, callback=self.discover_phone, meta={'name':title})
-    def discover_phone(self, response):
+                yield Request(url = url, callback=self.discover_item, meta={'name':title})
+    def discover_item(self, response):
         code = response.xpath('//textarea/text()').extract()[0]
         currentphone = {}
         try:
@@ -61,7 +64,7 @@ class wikicategoryscraperSpider(Spider):
             currentphone['name'] = response.meta['name']
             self.phones.append(currentphone)
             self.s += 1
-            sys.stdout.write(' {} '.format(self.s))
+            sys.stdout.write('o'.format(self.s))
             sys.stdout.flush()
         except Exception as e:
             self.f += 1
@@ -72,9 +75,10 @@ class wikicategoryscraperSpider(Spider):
     def spider_closed(self, spider):
         deduplicated = [dict(tupleized) for tupleized in set(tuple(item.items()) for item in self.phones)]
         pprint.pprint(deduplicated)
-        print("Wow, {} phones!".format(len(deduplicated)))
+        print("Wow, {} pages!".format(len(deduplicated)))
         print("I messed up {} articles.".format(len(self.missed)))
-        print("Here they are: {}".format(self.missed))
+	if len(self.missed != 0):
+	        print("Here they are: {}".format(self.missed))
         t = time.time()
         title = "crawl_{}.json".format(t)
         with open(title, "w") as file:
