@@ -50,12 +50,7 @@ class wikicategoryscraperSpider(Spider):
         code = response.xpath('//textarea/text()').extract()[0]
         currentphone = {}
         try:
-            # TODO Continue from here
             data = re.findall(r'^\|(.*)', code, re.MULTILINE)
-            #print(data)
-            #data = re.findall('{{Infobox Mobile phone(.*?)}}', code, re.DOTALL)[0]
-            #print(data)
-            #data = data.split('|')
             data = filter(None, [entry.replace('\n','').strip() for entry in data])
             data = [entry.split('=') for entry in data]
             data = [entry for entry in data if len(entry) != 1]
@@ -68,7 +63,6 @@ class wikicategoryscraperSpider(Spider):
             self.s += 1
             sys.stdout.write(' {} '.format(self.s))
             sys.stdout.flush()
-            #print(currentphone)
         except Exception as e:
             self.f += 1
             sys.stdout.write('x')
