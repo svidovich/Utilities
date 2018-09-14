@@ -1,4 +1,4 @@
-#LOG_ENABLED=False
+LOG_ENABLED=False
 
 NEWSPIDER_MODULE = "projectfiles.spiders"
 SPIDER_MODULES = "projectfiles.spiders"

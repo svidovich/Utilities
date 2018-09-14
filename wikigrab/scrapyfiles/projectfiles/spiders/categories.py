@@ -52,30 +52,29 @@ class wikicategoryscraperSpider(Spider):
         try:
             # TODO Continue from here
             data = re.findall(r'^\|(.*)', code, re.MULTILINE)
-            print(data)
+            #print(data)
             #data = re.findall('{{Infobox Mobile phone(.*?)}}', code, re.DOTALL)[0]
             #print(data)
             #data = data.split('|')
-            #data = filter(None, [entry.replace('\n','').strip() for entry in data])
-            #data = [entry.split('=') for entry in data]
-            #data = [entry for entry in data if len(entry) != 1]
-            #for entry in data:
-            #    entry = [value.strip().replace(' ','') for value in entry]
-            #    entry[1] = entry[1].replace('[[','').replace(']]','')
-            #    currentphone[entry[0]] = entry[1]
-            #currentphone['name'] = response.meta['name']
-            #self.phones.append(currentphone)
-            #self.s += 1
-            #sys.stdout.write(' {} '.format(self.s))
-            #sys.stdout.flush()
+            data = filter(None, [entry.replace('\n','').strip() for entry in data])
+            data = [entry.split('=') for entry in data]
+            data = [entry for entry in data if len(entry) != 1]
+            for entry in data:
+                entry = [value.strip().replace(' ','') for value in entry]
+                entry[1] = entry[1].replace('[[','').replace(']]','').replace('{','').replace('}','')
+                currentphone[entry[0]] = entry[1]
+            currentphone['name'] = response.meta['name']
+            self.phones.append(currentphone)
+            self.s += 1
+            sys.stdout.write(' {} '.format(self.s))
+            sys.stdout.flush()
             #print(currentphone)
         except Exception as e:
-            pass
-            #self.f += 1
-            #sys.stdout.write('x')
-            #sys.stdout.flush()
-            #print(e)
-            #self.missed.append(response.url)
+            self.f += 1
+            sys.stdout.write('x')
+            sys.stdout.flush()
+            print(e)
+            self.missed.append(response.url)
     def spider_closed(self, spider):
         deduplicated = [dict(tupleized) for tupleized in set(tuple(item.items()) for item in self.phones)]
         pprint.pprint(deduplicated)
