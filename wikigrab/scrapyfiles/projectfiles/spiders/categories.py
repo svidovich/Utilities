@@ -1,4 +1,5 @@
 #coding:utf-8
+import json
 from scrapy import Spider
 from scrapy.xlib.pydispatch import dispatcher
 from scrapy import signals
@@ -77,7 +78,7 @@ class wikicategoryscraperSpider(Spider):
         pprint.pprint(deduplicated)
         print("Wow, {} pages!".format(len(deduplicated)))
         print("I messed up {} articles.".format(len(self.missed)))
-	if len(self.missed != 0):
+	if len(self.missed) != 0:
 	        print("Here they are: {}".format(self.missed))
         t = time.time()
         title = "crawl_{}.json".format(t)
