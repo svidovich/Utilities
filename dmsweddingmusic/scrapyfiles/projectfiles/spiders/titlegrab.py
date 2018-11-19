@@ -43,7 +43,8 @@ class listerSpider(Spider):
 		'SPLASH_URL': 'http://localhost:8050',
 		'SPIDER_MIDDLEWARES': smwdict,
 		'DOWNLOADER_MIDDLEWARES': dlmwdict,
-		'DUPEFILTER_CLASS': 'scrapy_splash.SplashAwareDupeFilter'
+		'DUPEFILTER_CLASS': 'scrapy_splash.SplashAwareDupeFilter',
+		'COOKIES_ENABLED': 'False'
 	}
 
 	def start_requests(self):
@@ -57,8 +58,9 @@ class listerSpider(Spider):
 						})
 
 	def parsepage(self, response):
-		link = response.xpath('//a[@id="video-title"]').extract_first()
-		print(link)
+		link = response.xpath('//a[@id="video-title"]')[0]
+		text = link.xpath('./a/title').extract()
+		print(text)
 
 
 
