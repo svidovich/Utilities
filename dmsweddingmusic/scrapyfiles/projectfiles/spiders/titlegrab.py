@@ -49,15 +49,16 @@ class listerSpider(Spider):
 	def start_requests(self):
 		for song in self.data:
 			queryurl = 'https://www.youtube.com/results?search_query={}+{}'.format(song['artist'], song['title']).replace(' ','+')
-		yield SplashRequest(url=queryurl,
-					callback=self.parsepage,
-					endpoint='execute',
-					args={
-						'lua_source':self.script
-					})
+			yield SplashRequest(url=queryurl,
+						callback=self.parsepage,
+						endpoint='execute',
+						args={
+							'lua_source':self.script
+						})
 
 	def parsepage(self, response):
-		print(response.xpath('//body').extract()[0])
+		link = response.xpath('//a[@id="video-title"]').extract_first()
+		print(link)
 
 
 
