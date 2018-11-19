@@ -12,8 +12,14 @@ sys.setdefaultencoding('utf-8')
 
 class listerSpider(Spider):
 	name = "titlegrab"
-	ls = os.listdir(".")
-	pwd = os.getcwd()
+	data = ''
+	filename = 'output'
+	with open(filename, 'r') as file:
+		data = json.load(file)
+
+
+	# Youtube uses a whole fuckload of JS, so let's
+	# use splash to go about this
 
 	script = """
 	function main(splash)
@@ -41,7 +47,21 @@ class listerSpider(Spider):
 	}
 
 	def start_requests(self):
-		print('begin')
+		for song in self.data:
+			queryurl = 'https://www.youtube.com/results?search_query={}+{}'.format(song['artist'], song['title']).replace(' ','+')
+		yield SplashRequest(url=queryurl,
+					callback=self.parsepage,
+					endpoint='execute',
+					args={
+						'lua_source':self.script
+					})
+
+	def parsepage(self, response):
+		print(response.xpath('//body').extract()[0])
+
+
+
+
 #		filename = ""
 #		with open(filename, "w+") as file:
 #			json.dump(playlistdictionaries, file)
