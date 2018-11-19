@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # This is a script designed to test the email API.
 
 from emailclient import *
@@ -6,9 +7,9 @@ from emailclient import *
 account = "accountdetails.cfg"
 recipients = "destinations.cfg"
 emailmessage = "message.email"
-destinations = ["samuel.vidovich@gmail.com", "nicholas.vidovich@gmail.com", "hannah.appleconnect@gmail.com"]
-username = ""
-password = ""
+destinations = ["samuel.vidovich@gmail.com", "hannah.appleconnect@gmail.com"]
+username = "mydriasis.assistant@gmail.com"
+password = "099566421"
 
 
 # Let's build some files using our API
