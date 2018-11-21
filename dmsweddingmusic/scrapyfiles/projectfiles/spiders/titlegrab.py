@@ -17,7 +17,7 @@ class listerSpider(Spider):
 	with open(filename, 'r') as file:
 		data = json.load(file)
 
-
+	songlist = []
 	# Youtube uses a whole fuckload of JS, so let's
 	# use splash to go about this
 
@@ -25,7 +25,7 @@ class listerSpider(Spider):
 	function main(splash)
 		local url = splash.args.url
 		assert(splash:go(url))
-		assert(splash:wait(2))
+		assert(splash:wait(1))
 		return{
 			html = splash:html()
 		}
@@ -58,12 +58,14 @@ class listerSpider(Spider):
 						})
 
 	def parsepage(self, response):
-		link = response.xpath('//a[@id="video-title"]')[0]
-		text = link.xpath('./a/title').extract()
-		print(text)
-
-
-
+		link = response.xpath('//a[@id="video-title" and @aria-label]').extract()[1]
+#		print(link)
+		href = re.findall('title="(.*)" href="(.*)"', link)
+		song = {}
+		songtuple = href[0]
+		song['title'] = songtuple[0]
+		song['href'] = songtuple[1]
+		self.songlist.append(songtuple)
 
 #		filename = ""
 #		with open(filename, "w+") as file:
