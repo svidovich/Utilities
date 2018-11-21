@@ -1,3 +1,5 @@
+from scrapy.xlib.pydispatch import dispatcher
+from scrapy import signals
 from scrapy import Spider
 from scrapy_splash import SplashRequest
 from scrapy.http import Request, FormRequest, HtmlResponse
@@ -11,6 +13,12 @@ sys.setdefaultencoding('utf-8')
 
 
 class listerSpider(Spider):
+
+	# This allows me to write a function that gets called when the spider closes
+	def __init__(self):
+		dispatcher.connect(self.spider_closed, signals.spider_closed)
+
+
 	name = "titlegrab"
 	data = ''
 	filename = 'output'
@@ -25,7 +33,7 @@ class listerSpider(Spider):
 	function main(splash)
 		local url = splash.args.url
 		assert(splash:go(url))
-		assert(splash:wait(1))
+		assert(splash:wait(2))
 		return{
 			html = splash:html()
 		}
@@ -59,14 +67,17 @@ class listerSpider(Spider):
 
 	def parsepage(self, response):
 		link = response.xpath('//a[@id="video-title" and @aria-label]').extract()[1]
-#		print(link)
 		href = re.findall('title="(.*)" href="(.*)"', link)
 		song = {}
-		songtuple = href[0]
-		song['title'] = songtuple[0]
-		song['href'] = songtuple[1]
-		self.songlist.append(songtuple)
+		songdata = href[0]
+		song['title'] = songdata[0]
+		song['link'] = songdata[1]
+		print(song)
+		self.songlist.append(song)
 
-#		filename = ""
-#		with open(filename, "w+") as file:
-#			json.dump(playlistdictionaries, file)
+
+	def spider_closed(self, spider):
+
+		filename = "masterlist"
+		with open(filename, "w") as file:
+			json.dump(self.songlist, file)
